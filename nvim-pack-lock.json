@@ -6,7 +6,7 @@
       "version": "1.0.0 - 2.0.0"
     },
     "conform.nvim": {
-      "rev": "1bf8b5b9caee51507aa51eaed3da5b0f2595c6b9",
+      "rev": "afce105eb47b0869dfafdac90d82f02ef2419d61",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "diffview.nvim": {
@@ -67,10 +67,6 @@
     "nvim-web-devicons": {
       "rev": "8dcb311b0c92d460fac00eac706abd43d94d68af",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
-    },
-    "opencode.nvim": {
-      "rev": "add4f1d7bb46a1af99e775e0f072730b09e9e265",
-      "src": "https://github.com/NickvanDyke/opencode.nvim"
     },
     "render-markdown.nvim": {
       "rev": "6e0e8902dac70fecbdd8ce557d142062a621ec38",
