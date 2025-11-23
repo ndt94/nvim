@@ -17,7 +17,7 @@ return {
 	},
 	workspace_required = true,
 	on_attach = function(client, bufnr)
-		vim.api.nvim_buf_create_user_command(0, "LspEslintFixAll", function()
+		vim.api.nvim_buf_create_user_command(bufnr, "LspEslintFixAll", function()
 			client:request_sync("workspace/executeCommand", {
 				command = "eslint.applyAllFixes",
 				arguments = {
@@ -29,30 +29,27 @@ return {
 			}, nil, bufnr)
 		end, {})
 	end,
-	-- https://eslint.org/docs/user-guide/configuring/configuration-files#configuration-file-formats
 	root_dir = function(bufnr, on_dir)
 		local fname = vim.api.nvim_buf_get_name(bufnr)
 
-		-- First, find the actual workspace root (for monorepo support)
 		local workspace_root_patterns = {
 			".git",
 			"pnpm-workspace.yaml",
+			"turbo.json",
 			"rush.json",
 			"lerna.json",
 			"nx.json",
-			"package.json", -- fallback for single repos
+			"package.json",
 		}
 
 		local workspace_root = vim.fs.dirname(vim.fs.find(workspace_root_patterns, { path = fname, upward = true })[1])
 
-		-- If no workspace root found, use current directory
 		if not workspace_root then
 			workspace_root = vim.fn.getcwd()
 		end
 
 		on_dir(workspace_root)
 	end,
-	-- Refer to https://github.com/Microsoft/vscode-eslint#settings-options for documentation.
 	settings = {
 		validate = "on",
 		packageManager = nil,
@@ -72,10 +69,7 @@ return {
 		problems = {
 			shortenToSingleLine = false,
 		},
-		-- nodePath configures the directory in which the eslint server should start its node_modules resolution.
-		-- This path is relative to the workspace folder (root dir) of the server instance.
 		nodePath = "",
-		-- working directory is now set dynamically in before_init based on config location
 		codeAction = {
 			disableRuleComment = {
 				enable = true,
@@ -87,9 +81,6 @@ return {
 		},
 	},
 	before_init = function(_, config)
-		-- The "workspaceFolder" is a VSCode concept. It limits how far the
-		-- server will traverse the file system when locating the ESLint config
-		-- file (e.g., .eslintrc).
 		local root_dir = config.root_dir
 
 		if root_dir then
@@ -145,22 +136,6 @@ return {
 					config.settings.experimental.useFlatConfig = true
 					break
 				end
-			end
-
-			-- Support Yarn2 (PnP) projects - check both root and config directory
-			local pnp_cjs = root_dir .. "/.pnp.cjs"
-			local pnp_js = root_dir .. "/.pnp.js"
-			local config_pnp_cjs = config_dir .. "/.pnp.cjs"
-			local config_pnp_js = config_dir .. "/.pnp.js"
-
-			if
-				vim.uv.fs_stat(pnp_cjs)
-				or vim.uv.fs_stat(pnp_js)
-				or vim.uv.fs_stat(config_pnp_cjs)
-				or vim.uv.fs_stat(config_pnp_js)
-			then
-				local cmd = config.cmd
-				config.cmd = vim.list_extend({ "yarn", "exec" }, cmd)
 			end
 		end
 	end,
