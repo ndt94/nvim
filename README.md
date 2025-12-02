@@ -56,6 +56,16 @@ Prerequisites: Neovim 0.12+, Git, Ripgrep, Nerd Font
 
 Update plugins: `<leader>pu` or `:lua vim.pack.update()`
 
+## Development
+
+Validate the config before committing:
+
+```bash
+just validate  # Run all checks (loads config in headless nvim + checks formatting)
+just check     # Test config loads without errors
+just fmt       # Format all Lua files with StyLua
+```
+
 ## Quick Start
 
 Leader key: `Space`
