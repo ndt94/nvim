@@ -1,4 +1,4 @@
-local util = require("utils.lsp")
+local BIOME_CONFIG = { "biome.json", "biome.jsonc" }
 
 return {
 	cmd = function(dispatchers, config)
@@ -29,9 +29,7 @@ return {
 		-- To support monorepos, biome recommends starting the search for the root from cwd
 		-- https://biomejs.dev/guides/big-projects/#use-multiple-configuration-files
 		local cwd = vim.fn.getcwd()
-		local root_files = { "biome.json", "biome.jsonc" }
-		root_files = util.insert_package_json(root_files, "biome", cwd)
-		local root_dir = vim.fs.dirname(vim.fs.find(root_files, { path = cwd, upward = true })[1])
+		local root_dir = vim.fs.dirname(vim.fs.find(BIOME_CONFIG, { path = cwd, upward = true })[1])
 		on_dir(root_dir)
 	end,
 }
