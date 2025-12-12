@@ -69,12 +69,16 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "render-markdown.nvim": {
-      "rev": "b2b135347e299ffbf7f4123fb7811899b0c9f4b8",
+      "rev": "26097a4eb95b391d0308c1b77cce89b28bbc9916",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "snacks.nvim": {
       "rev": "fe7cfe9800a182274d0f868a74b7263b8c0c020b",
       "src": "https://github.com/folke/snacks.nvim"
+    },
+    "vim-wakatime": {
+      "rev": "d7973b157a632d1edeff01818f18d67e584eeaff",
+      "src": "https://github.com/wakatime/vim-wakatime"
     },
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
