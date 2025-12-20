@@ -6,7 +6,7 @@
       "version": "1.0.0 - 2.0.0"
     },
     "conform.nvim": {
-      "rev": "94e6811242a3a2cbf4459863cc4ef4cfe9fa6aaf",
+      "rev": "a7c61e7dd94170f9dd84f5b5546b874f98c7d5bd",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "diffview.nvim": {

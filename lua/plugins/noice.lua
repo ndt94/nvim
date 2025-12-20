@@ -60,5 +60,5 @@ for _, map in ipairs(keymaps) do
   if map.expr ~= nil then opts.expr = map.expr end
 
   local mode = map.mode or "n"     -- "mode" can be missing (default "n" for normal)
-  vim.keymap.set(mode, map[1], map[1], opts)
+  vim.keymap.set(mode, map[1], map[2], opts)
 end
