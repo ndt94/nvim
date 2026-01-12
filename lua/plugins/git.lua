@@ -1,7 +1,9 @@
 vim.pack.add({
 	"https://github.com/lewis6991/gitsigns.nvim",
-	-- "https://github.com/sindrets/diffview.nvim",
-	"https://github.com/esmuellert/codediff.nvim",
+	{
+		src = "https://github.com/esmuellert/codediff.nvim",
+		version = vim.version.range("^2"),
+	},
 })
 
 -- Setup gitsigns.nvim
@@ -191,20 +193,20 @@ end, { desc = "Diff: Compare file with revision" })
 vim.keymap.set("n", "<leader>gm", function()
 	local gs_status = vim.b.gitsigns_status_dict
 	local default_branch = nil
-	
+
 	-- Use gitsigns to get git root, then check for default branch
 	if gs_status and gs_status.root then
 		local git_dir = gs_status.root
 		-- Use gitsigns internal git commands (fast, async-capable)
 		local gs = require("gitsigns")
-		
+
 		-- Try to read .git/refs/remotes/origin/HEAD
 		local origin_head = vim.fn.readfile(git_dir .. "/.git/refs/remotes/origin/HEAD", "", 1)
 		if #origin_head > 0 then
 			default_branch = origin_head[1]:match("ref: refs/remotes/origin/(.+)")
 		end
 	end
-	
+
 	-- Fallback: check which common branch exists
 	if not default_branch then
 		-- Quick check using vim.fn.filereadable for .git/refs/heads/
@@ -223,7 +225,7 @@ vim.keymap.set("n", "<leader>gm", function()
 			default_branch = "main" -- no git repo detected
 		end
 	end
-	
+
 	vim.cmd(("CodeDiff %s"):format(default_branch))
 end, { desc = "Diff: vs default branch (auto-detect)" })
 
